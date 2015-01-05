@@ -1,0 +1,42 @@
+'''This program will calculate the angle between the hour hand and
+the minute hand of a clock. The time input can be in 12 or 24 hour format'''
+
+def main():
+    
+    time = raw_input("What time is it? ( hr:min ) : ")
+    
+    time = time.replace(":"," ")
+    hour = int(time.split()[0])
+    minu = int(time.split()[1])
+    validInput = False
+    
+    #check input validity
+    while (not validInput):
+        if (hour > 23 or hour < 0):
+            print "Invalid hour entered, plese try again"
+            main()
+        if (minu > 59 or minu < 0):
+            print "Invalid minute entered, plese try again"
+            main()
+        else:
+            validInput = True
+
+    #now that we have confirmed and appropriate input, we can calculate angle
+    
+    angle = getAngle(hour,minu)
+    
+    print ("The degree between the hour and minute hands at "
+           + str(hour)+":" + str(minu)+ " is: " + ("%0.2f") % (angle) + " degrees" )
+
+
+def getAngle(hr, mn):
+    return abs(hr*30+ mn*0.5 - 6*mn)
+
+
+    ''' for each hour, the hour hand travels 30deg
+    for each min, the min hand travels 6deg
+    to get the angle between the two hands we must take the difference
+    of angle of each hand.
+    ALSO, in 60 minutes, the hour hand travels 30 deg, so the hour hand is
+    moving at a rate of 0.5deg/min
+    '''
